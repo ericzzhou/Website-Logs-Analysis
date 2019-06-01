@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website log analysis", "Website log analysis\Website log analysis.csproj", "{83CD4CDE-4D91-477F-816B-1B6BC83CBE7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83CD4CDE-4D91-477F-816B-1B6BC83CBE7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83CD4CDE-4D91-477F-816B-1B6BC83CBE7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83CD4CDE-4D91-477F-816B-1B6BC83CBE7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83CD4CDE-4D91-477F-816B-1B6BC83CBE7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88C9B4DB-DD3D-41F9-B6BF-141B005D82A9}
+	EndGlobalSection
+EndGlobal
