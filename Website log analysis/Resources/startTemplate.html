@@ -27,22 +27,28 @@
             border: 1px solid red;
             width: 100%;
         }
+        /*table th, table td {
+            width: 125px;
+        }*/
     </style>
+    <script src="http://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
     <div class="title">
         日志分析结果
     </div>
-    <table>
-        <tr>
-            <th class="ip">IP</th>
-            <th class="http_method">请求方式</th>
-            <th class="response_code">状态吗</th>
-            <th class="request_time">请求时间</th>
-            <th class="bot_name">爬虫</th>
-            <th class="bot_version">爬虫版本</th>
-            <th class="response_url">请求地址</th>
-           
-
-        </tr>
+    <table id="report">
+        <thead>
+            <tr>
+                <th class="ip">IP</th>
+                <th class="http_method">方式</th>
+                <th class="response_code">状态</th>
+                <th class="request_time">时间</th>
+                <th class="bot_name">爬虫</th>
+                <th class="response_url">页面</th>
+            </tr>
+        </thead>
+        <tbody>

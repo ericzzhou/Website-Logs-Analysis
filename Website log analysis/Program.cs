@@ -3,14 +3,19 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Website_log_analysis.Entities;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Website_log_analysis
 {
     class Program
     {
         static string reportName = "";
+        static List<string> bots = null;
         static void Main(string[] args)
         {
+            bots = new Bots().GetBots().Select(x => x.Code).ToList();
+
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("  **********网站日志分析工具**********");
@@ -39,11 +44,12 @@ namespace Website_log_analysis
             Console.WriteLine("报表地址：{0}", reportName);
 
             
-            Console.WriteLine("分析完成，按下任意键结束");
+            
 
             var afterTime = DateTime.Now;
             var ts = afterTime.Subtract(beforTime);
-            Console.Write("结束：{0},总耗时：{1}毫秒", afterTime, ts.TotalMilliseconds);
+            Console.Write("分析结束：{0},总耗时：{1}毫秒", afterTime, ts.TotalMilliseconds);
+            Console.WriteLine("按下任意键结束");
             Console.ReadKey();
         }
 
@@ -105,22 +111,23 @@ namespace Website_log_analysis
             var logInfo = new LogEntity()
             {
                 IP = Regex.Match(strLine, @"((25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))\.){3}(25[0-5]|2[0-4]\d|((1\d{2})|([1-9]?\d)))").Value,
-                RequestTime = Regex.Match(strLine, @"(?<=\[).*(?=\])").Value,
+                RequestTime = Regex.Match(strLine, @"(?<=\[)\d+\/\w+\/\d+:\d+:\d+:\d+").Value,
                 HttpMethod = Regex.Match(strLine, @"(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS|TRACE)").Value,
                 RequestUrl = Regex.Match(strLine, @"(?<=(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS|TRACE) ).*(?=\ HTTP/)").Value,
                 ResponseCode = Regex.Match(strLine, @"(?<=HTTP/\d+.\d+.\s)\d*(?=\s\d+\s)").Value,
-                BotName = Regex.Match(strLine, @"(?<=compatible; ).*(?=/\d.\d)").Value,
-                BotVersion = Regex.Match(strLine, @"(?<=compatible;.*/).*(?=;)").Value,
+                //BotName = Regex.Match(strLine, @"(?<=compatible; ).*(?=/\d.\d)").Value,
+                BotName = Regex.Match(strLine, @"("+ string.Join('|',bots) +")").Value,
+                //BotVersion = Regex.Match(strLine, @"(?<=compatible;.*/).*(?=;)").Value,
                 //UserAgent = Regex.Match(strLine, @"(?<=\s\S-\S\s\S).*/\d+.\d+").Value
             };
 
-            string rowTemplate = @"<tr>
+            string rowTemplate = @"
+            <tr>
                 <td>{IP}</td>
                 <td>{HttpMethod}</td>
                 <td>{ResponseCode}</td>
                 <td>{RequestTime}</td>
                 <td>{BotName}</td>
-                <td>{BotVersion}</td>
                 <td>{RequestUrl}</td>
             </tr>";
             string rowContent = rowTemplate
